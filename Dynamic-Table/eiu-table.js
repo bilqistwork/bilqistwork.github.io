@@ -1128,6 +1128,43 @@ let AndysTable = _decorate(
       },
       {
         kind: "method",
+        key: "saveSelectedRow",
+        value: function saveSelectedRow() {
+          if (!this.selectedRow) return;
+
+          const editedRow = this.data.find((item) => item === this.selectedRow);
+          if (!editedRow) return;
+
+          const updatedRow = { ...editedRow, ...this.tempEditRowData };
+          const computedFields = this.computedFormulas
+
+          for (const field in computedFields) {
+            const expression = computedFields[field].expression;
+
+            try {
+              const keys = Object.keys(updatedRow);
+              const values = Object.values(updatedRow);
+              const fn = new Function(...keys, `return ${expression}`);
+              updatedRow[field] = fn(...values);
+            } catch (error) {
+              console.warn(`Failed to evaluate computed field "${field}":`, error.message);
+              updatedRow[field] = null;
+            }
+          }
+
+          Object.assign(editedRow, updatedRow);
+
+          this.dispatchEvent(
+            new CustomEvent("change", {
+              detail: {
+                collection: JSON.stringify(this.data),
+              },
+            })
+          );
+        }
+      },
+      {
+        kind: "method",
         key: "updatePageData",
         value: function updatePageData() {
           this.totalPages = Math.ceil(this.filteredData.length / this.pageSize);
