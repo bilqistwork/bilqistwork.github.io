@@ -407,7 +407,7 @@ _decorate(
 );
 
 let AndysTable = _decorate(
-  [e$1("eiu-table")],
+  [e$1("eiu-table-2")],
   function (_initialize, _LitElement) {
     console.log("CREATE CLASS");
     class AndysTable extends _LitElement {
