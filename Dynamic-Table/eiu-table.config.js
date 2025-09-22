@@ -1,5 +1,5 @@
 const config = {
-  controlName: "Table",
+  controlName: "Table Updated",
   description: "Editable Table for NAC",
   groupName: "Elistec Form Controls",
   fallbackDisableSubmit: true,
