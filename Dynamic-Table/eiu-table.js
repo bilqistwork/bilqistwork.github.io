@@ -1091,7 +1091,7 @@ let AndysTable = _decorate(
               </button>
             </div>
             <script>
-              const nacTable = document.querySelector("eiu-table");
+              const nacTable = document.querySelector("eiu-table-2");
             </script>
           `;
         },
